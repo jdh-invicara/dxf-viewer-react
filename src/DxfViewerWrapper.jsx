@@ -9,7 +9,7 @@ const DEFAULT_DXF_VIEWER_OPTIONS = {
 }
 
 const DXF_EVENT_NAMES =  ["loaded", "cleared", "destroyed", "resized", "pointerdown",
-"pointerup", "viewChanged", "message"]
+                          "pointerup", "viewChanged", "message"]
 
 const DxfViewerWrapper = ({fileUrl, onProgress, onEvent, options}) => {
 
@@ -19,14 +19,11 @@ const DxfViewerWrapper = ({fileUrl, onProgress, onEvent, options}) => {
   const dxfViewerRef = useRef(null)
 
   const subscribe = (eventName) => {
-    dxfViewerRef.current.Subscribe(eventName, e => {if (onEvent) ("dxf-" + eventName, e)})
-    // if (eventName == "loaded") {
-    //   dxfViewerRef.current.Subscribe(eventName, () => _onProgress("finished"))
-    // }
+    dxfViewerRef.current.Subscribe(eventName, e => {if (onEvent) onEvent("dxf-" + eventName, e)})
   }
   
   useEffect(()=> {
-    if (viewerCanvasRef.current) {
+    if (viewerCanvasRef.current && !dxfViewerRef.current) {
       dxfViewerRef.current = new DxfViewer(viewerCanvasRef.current, { ...DEFAULT_DXF_VIEWER_OPTIONS, ...(options||{})} )
       for (const eventName of DXF_EVENT_NAMES) {
         subscribe(eventName)
@@ -44,7 +41,7 @@ const DxfViewerWrapper = ({fileUrl, onProgress, onEvent, options}) => {
           break
         case 'finished':
           payload.layers = dxfViewerRef.current.GetLayers()
-          break;
+          break
         default: 
           // nothing else to do...
       }
@@ -62,7 +59,6 @@ const DxfViewerWrapper = ({fileUrl, onProgress, onEvent, options}) => {
           progressCbk: _onProgress,
           workerFactory: () => DxfViewer.SetupWorker()
         })
-        // Using "loaded" message instead
         .then(() => {
           _onProgress("finished")
         })

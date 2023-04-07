@@ -61,7 +61,7 @@ const LayersList = ({layers}) =>
 
 
 const LayerListItem = ({layer}) => 
-  <li key={layer.name}>
+  <li key={"ll-"+layer.name}>
     <Swatch color={layer.color}/>
     {layer.displayName}
   </li>

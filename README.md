@@ -15,6 +15,5 @@ npm run start
 
 ## Todo
 
-* Fix first load issue
 * Setup web workers correctly
 * Wire up show/hide checkboxes
