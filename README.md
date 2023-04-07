@@ -15,5 +15,4 @@ npm run start
 
 ## Todo
 
-* Setup web workers correctly
 * Wire up show/hide checkboxes
