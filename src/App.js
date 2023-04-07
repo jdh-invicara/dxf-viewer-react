@@ -36,7 +36,7 @@ const App = () => {
   return (
   <div>
     <div className='header'>
-      <span className='app-title'>DXF Tool</span>
+      <span className='app-title'>DXF Viewer</span>
       <Button variant="contained" component="label">
         Select File 
         <input type="file" hidden accept='.dxf' onChange={e=>setFile(e.target.files[0])}/>

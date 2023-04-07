@@ -43,6 +43,7 @@ const DxfViewerWrapper = ({fileUrl, onProgress, onEvent, options}) => {
           break
         case 'finished':
           payload.layers = dxfViewerRef.current.GetLayers()
+          payload.dxfViewer = dxfViewerRef.current
           break
         default: 
           // nothing else to do...
