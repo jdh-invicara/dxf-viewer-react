@@ -8,6 +8,8 @@ const DEFAULT_DXF_VIEWER_OPTIONS = {
   colorCorrection: true
 }
 
+const workerFactory = () => new Worker(new URL("./DxfViewerWorker.js", import.meta.url))
+
 const DXF_EVENT_NAMES =  ["loaded", "cleared", "destroyed", "resized", "pointerdown",
                           "pointerup", "viewChanged", "message"]
 
@@ -57,7 +59,7 @@ const DxfViewerWrapper = ({fileUrl, onProgress, onEvent, options}) => {
           url: fileUrl,
           fonts: null,
           progressCbk: _onProgress,
-          workerFactory: () => DxfViewer.SetupWorker()
+          workerFactory: workerFactory
         })
         .then(() => {
           _onProgress("finished")
