@@ -1,0 +1,64 @@
+body { 
+  font-family: 'Roboto'; 
+} 
+
+.header {
+  background-color: rgb(25, 118, 210);
+  padding: 10px;
+  color: white;
+}
+
+.app-title {
+  font-weight: bold;
+  font-size: 18pt;
+}
+
+.app-description {
+  margin-left: 50px;
+  font-style: italic;
+}
+
+.header span {
+  padding: 0 5px 0 10px;
+}
+
+.pane {
+  padding: 10px;
+}
+
+.info.pane {
+  overflow:auto;
+  height: calc(100vh - 85px);
+}
+
+.viewer-canvas-container {
+  width: 100%;
+  height: calc(100vh - 85px);
+  min-width: 100px;
+  min-height: 100px;
+}
+
+.file-info-table td:first-child {
+  font-weight: bold;
+}
+
+ul.layer-list {
+  list-style-type: none;
+}
+
+.layer-list li {
+  font-size: large;
+  padding-top: 5px;
+  word-wrap: unset;
+  white-space: nowrap;
+}
+
+.swatch {
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  margin-right: 10px;
+  border: 5px solid;
+  border-width: 5px;
+  border-radius: 50%;
+}
