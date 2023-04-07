@@ -4,9 +4,17 @@ This is another example of [dxf-viewer](https://github.com/vagran/dxf-viewer) pa
 
 It's not as nice as the "official" sample (here: [dxf-viewer-example-src](https://github.com/vagran/dxf-viewer-example-src)) - but that sample is written in Vue so this example should help get React developers started.
 
+## Getting Started
+
 ```sh
 git clone https://github.com/jdh-invicara/dxf-viewer-react
 cd dxf-viewer-react
 npm install
 npm run start
 ```
+
+## Todo
+
+* Fix first load issue
+* Setup web workers correctly
+* Wire up show/hide checkboxes
