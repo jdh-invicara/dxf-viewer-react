@@ -5,10 +5,57 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Button } from '@mui/material';
 
 const DxfInfoPane = ({fileName, fileSize, status}) => {
 
+  const [layers, setLayers] = useState([])
+
   const getStatusMessage = () => status?.phase == "fetch" ? `fetching ${status.size} of ${status.total}` : status.phase
+
+  const addBBox = async () => {
+    if (status?.dxfViewer) {
+      let bb = status.dxfViewer.bounds
+      let vertices = [
+        {x: bb.minX, y: bb.minY},
+        {x: bb.minX, y: bb.maxY},
+        {x: bb.maxX, y: bb.maxY},
+        {x: bb.maxX, y: bb.minY},
+        {x: bb.minX, y: bb.minY},
+      ]
+      let fragment = {
+        tables: {
+          layer: {
+            layers: {
+              "_added_content_": {
+                "name": "_added_content_",
+                "frozen": false,
+                "visible": true,
+                "colorIndex": 7,
+                "color": 16777215,
+                "displayName": "_added_content_"
+              }
+            }
+          }
+        },
+        entities: [
+          {layer: "_added_content_", lineweight: 100, type: "LWPOLYLINE", vertices}
+        ]
+      }
+      await status.dxfViewer.AddDxfFragment({fragment})
+      setLayers(status.dxfViewer.GetLayers())
+      console.log(status.dxfViewer.GetDxf())
+    }
+    else {
+      console.warning("No dxfViewer!")
+    }
+  }
+
+  useEffect(()=>{
+    if (status?.layers) {
+      setLayers(status?.layers)
+    }
+  },[status])
 
   return (
     <>
@@ -24,7 +71,8 @@ const DxfInfoPane = ({fileName, fileSize, status}) => {
       </TableContainer>
       {status?.layers && 
           <div>
-            <LayersList layers={status.layers} dxfViewer={status?.dxfViewer} />
+            <LayersList layers={layers} dxfViewer={status?.dxfViewer} />
+            {status?.dxfViewer?.AddDxfFragment && <Button onClick={addBBox}>Draw Bounding Box</Button>}
           </div>
       }
     </>
@@ -43,6 +91,7 @@ const LayersList = ({layers: layersIn, dxfViewer}) => {
 
   console.log(dxfViewer)
   console.log(dxfViewer.GetLayers())
+  console.log(dxfViewer.GetDxf())
 
   let [layers, setLayers] = useState([])
   let [items, setItems] = useState([])

@@ -5,7 +5,8 @@ import { DxfViewer } from 'dxf-viewer'
 const DEFAULT_DXF_VIEWER_OPTIONS = {
   clearColor: new three.Color("#fff"),
   autoResize: true,
-  colorCorrection: true
+  colorCorrection: true,
+  retainParsedDxf: true
 }
 
 const workerFactory = () => new Worker(new URL("./DxfViewerWorker.js", import.meta.url))

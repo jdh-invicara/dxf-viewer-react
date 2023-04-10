@@ -15,5 +15,6 @@ npm run start
 
 ## Todo
 
+* UI for configuring options (and stored in LocalStorage)
 * Add blocks details to info pane
 * Display one instance of each block in the main pane (synthesize a temporary document for this)
